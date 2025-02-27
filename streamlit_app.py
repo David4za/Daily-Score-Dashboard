@@ -202,7 +202,7 @@ if uploaded_open_orders and uploaded_closed_orders:
     with col3:
         st.metric("Total Late", total_late)
     with col4:
-        st.metric("Average Backlog", average_backlog)
+        st.metric("Average Backlog", f'{average_backlog:.2f}')
 
     # Date range 
     
