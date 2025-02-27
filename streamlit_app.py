@@ -210,5 +210,5 @@ if uploaded_open_orders and uploaded_closed_orders:
         filtered_df = filtered_df[(filtered_df['Date'] >= pd.to_datetime(start_date)) & (filtered_df['Date'] <= pd.to_datetime(end_date))]
     
     st.subheader("Daily Score Trend")
-    fig_bar = px.bar(filtered_df, x='Date',y=['On Time', 'Late', 'Backlog'], color_discrete_sequence=['80ed99','780000','ee9b00'], title='Daily Overview', barmode='stack')
+    fig_bar = px.bar(filtered_df, x='Date',y=['On Time', 'Late', 'Backlog'], color_discrete_sequence=['#80ed99','#780000','#ee9b00'], title='Daily Overview', barmode='stack')
     st.plotly_chart(fig_bar)
