@@ -174,7 +174,7 @@ if uploaded_open_orders and uploaded_closed_orders:
     
     backlog_df = backlog_orders_DP1(df_orders, dimDates)
     daily_score_df = daily_score_dp1(df_orders, dimDates, backlog_df)
-    daily_score_df_2024 = daily_score_df[daily_score_df['Year'] == 2024]
+    daily_score_df = daily_score_df[daily_score_df['Date'] == datetime.now().date()]
 
     # ------- Dashboard --------
 
