@@ -33,6 +33,7 @@ if uploaded_open_orders and uploaded_closed_orders:
     df_closed['OrderType'] = 'Closed'
     df_open['OrderType'] = 'Open'
     
+    today = datetime.today()
     yesterday = datetime.now() - timedelta(days=1)
     
     # convert the data to DateTime
@@ -174,7 +175,7 @@ if uploaded_open_orders and uploaded_closed_orders:
     
     backlog_df = backlog_orders_DP1(df_orders, dimDates)
     daily_score_df = daily_score_dp1(df_orders, dimDates, backlog_df)
-    daily_score_df = daily_score_df[daily_score_df['Date'] == datetime.now().date()]
+    daily_score_df = daily_score_df[daily_score_df['Date'] <= today]
 
     # ------- Dashboard --------
 
