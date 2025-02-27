@@ -192,14 +192,17 @@ if uploaded_open_orders and uploaded_closed_orders:
     avergae_score = filtered_df['Daily Score'].mean()
     total_on_time = filtered_df['On Time'].sum()
     total_late = filtered_df['Late'].sum()
+    average_backlog = filtered_df['Backlog'].mean()
 
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3, col4 = st.columns(4)
     with col1:
         st.metric("Average Daily Score", f'{avergae_score:.2f}')
     with col2:
         st.metric("Total On Time",total_on_time)
     with col3:
         st.metric("Total Late", total_late)
+    with col4:
+        st.metric("Average Backlog", average_backlog)
 
     # Date range 
     
