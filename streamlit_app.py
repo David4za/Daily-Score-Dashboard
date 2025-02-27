@@ -2,14 +2,21 @@ from datetime import datetime, timedelta
 import pandas as pd
 import numpy as np
 import streamlit as st
+import plotly.express as px
 
 
 # Streamlit
 
 st.title("Daily Score Dashboard")
 st.write("Upload open and closed orders")
-uploaded_open_orders = st.file_uploader("Open orders in .csv format", type="csv",)
-uploaded_closed_orders = st.file_uploader("Closed Orders", type="csv")
+
+# file uploading section
+
+col_1, col_2 = st.columns(2)
+with col_1:
+    uploaded_open_orders = st.file_uploader("Open orders in .csv format", type="csv",)
+with col_2:
+    uploaded_closed_orders = st.file_uploader("Closed Orders", type="csv")
 
 if uploaded_open_orders and uploaded_closed_orders:
 
@@ -169,24 +176,39 @@ if uploaded_open_orders and uploaded_closed_orders:
     daily_score_df = daily_score_dp1(df_orders, dimDates, backlog_df)
     daily_score_df_2024 = daily_score_df[daily_score_df['Year'] == 2024]
 
-    if not daily_score_df_2024.empty():
-        st.line_chart(daily_score_df_2024.set_index('Date')[['Daily Score']])
+    # ------- Dashboard --------
 
+    st.subheader("Performance Overview")
 
+    # KPIs
 
+    avergae_score = daily_score_df['Daily Score'].mean()
+    total_on_time = daily_score_df['On Time'].sum()
+    total_late = daily_score_df['Late'].sum()
 
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.metric("Average Daily Score", f'{avergae_score:.2f}')
+    with col2:
+        st.metric("Total On Time",total_on_time)
+    with col3:
+        st.metric("Total Late", total_late)
 
+    # Filtering by year
 
+    years = daily_score_df['Year'].unique()
+    selected_year = st.selectbox("Select Year", options=years, index=len(years)-1)
+    filtered_df = daily_score_df[daily_score_df['Year'] == years]
 
-
-
-
-
-
-
-
-
-
-
-
-
+    # Date range 
+    
+    min_date = filtered_df['Date'].min()
+    max_date = filtered_df['Date'].max()
+    date_range = st.date_input("Select Date Range", [min_date, max_date])
+    if len(date_range) == 2:
+        start_date, end_date = date_range
+        filtered_df = filtered_df[(filtered_df['Date'] >= pd.to_datetime(start_date)) & (filtered_df['Date'] <= pd.to_datetime(end_date))]
+    
+    st.subheader("Daily Score Trend")
+    fig_bar = px.bar(filtered_df, x='Date',y=['On Time', 'Late', 'Backlog'], title='Daily Overview', barmode='stack')
+    st.plotly_chart(fig_bar)
