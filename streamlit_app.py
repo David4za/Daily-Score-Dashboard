@@ -181,11 +181,17 @@ if uploaded_open_orders and uploaded_closed_orders:
 
     st.subheader("Performance Overview")
 
+    # Filtering by year
+
+    years = daily_score_df['Year'].unique()
+    selected_year = st.selectbox("Select Year", options=years, index=len(years)-1)
+    filtered_df = daily_score_df[daily_score_df['Year'] == selected_year]
+    
     # KPIs
 
-    avergae_score = daily_score_df['Daily Score'].mean()
-    total_on_time = daily_score_df['On Time'].sum()
-    total_late = daily_score_df['Late'].sum()
+    avergae_score = filtered_df['Daily Score'].mean()
+    total_on_time = filtered_df['On Time'].sum()
+    total_late = filtered_df['Late'].sum()
 
     col1, col2, col3 = st.columns(3)
     with col1:
@@ -194,12 +200,6 @@ if uploaded_open_orders and uploaded_closed_orders:
         st.metric("Total On Time",total_on_time)
     with col3:
         st.metric("Total Late", total_late)
-
-    # Filtering by year
-
-    years = daily_score_df['Year'].unique()
-    selected_year = st.selectbox("Select Year", options=years, index=len(years)-1)
-    filtered_df = daily_score_df[daily_score_df['Year'] == selected_year]
 
     # Date range 
     
