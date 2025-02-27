@@ -170,8 +170,7 @@ if uploaded_open_orders and uploaded_closed_orders:
     daily_score_df_2024 = daily_score_df[daily_score_df['Year'] == 2024]
 
     if daily_score_df_2024:
-        st.line_chart(daily_score_df_2024) 
-
+        st.line_chart(daily_score_df_2024.set_index('Date')[['Daily Score']])
 
 
 
