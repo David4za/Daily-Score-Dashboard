@@ -198,7 +198,7 @@ if uploaded_open_orders and uploaded_closed_orders:
 
     years = daily_score_df['Year'].unique()
     selected_year = st.selectbox("Select Year", options=years, index=len(years)-1)
-    filtered_df = daily_score_df[daily_score_df['Year'] == years]
+    filtered_df = daily_score_df[daily_score_df['Year'] == selected_year]
 
     # Date range 
     
