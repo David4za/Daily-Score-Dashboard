@@ -55,7 +55,7 @@ if uploaded_open_orders and uploaded_closed_orders:
     
     dimDates = pd.DataFrame({'Date':dates})
     dimDates['Year'] =dimDates['Date'].dt.year
-    dimDates['Month'] =dimDates['Date'].dt.month
+    dimDates['Month'] =dimDates['Date'].dt.month_name()
     dimDates['Day'] =dimDates['Date'].dt.day
     dimDates['Weekday'] =dimDates['Date'].dt.weekday
     dimDates['Quarter'] =dimDates['Date'].dt.quarter
