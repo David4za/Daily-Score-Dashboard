@@ -204,14 +204,20 @@ if uploaded_open_orders and uploaded_closed_orders:
     with col4:
         st.metric("Average Backlog", f'{average_backlog:.2f}')
 
-    # Date range 
+    # Filter by Month 
     
-    min_date = filtered_df['Date'].min()
-    max_date = filtered_df['Date'].max()
-    date_range = st.date_input("Select Date Range", [min_date, max_date])
-    if len(date_range) == 2:
-        start_date, end_date = date_range
-        filtered_df = filtered_df[(filtered_df['Date'] >= pd.to_datetime(start_date)) & (filtered_df['Date'] <= pd.to_datetime(end_date))]
+    months = daily_score_df['Month'].unique()
+    selected_month = st.selectbox("Select Month", options=months, index=len(months)-1)
+    filtered_df = daily_score_df[daily_score_df['Month'] == selected_month] 
+    
+    # # Date range (disabled for now)
+    
+    # min_date = filtered_df['Date'].min()
+    # max_date = filtered_df['Date'].max()
+    # date_range = st.date_input("Select Date Range", [min_date, max_date])
+    # if len(date_range) == 2:
+    #     start_date, end_date = date_range
+    #     filtered_df = filtered_df[(filtered_df['Date'] >= pd.to_datetime(start_date)) & (filtered_df['Date'] <= pd.to_datetime(end_date))]
     
     st.subheader("Daily Score Trend")
     fig_bar = px.bar(filtered_df, x='Date',y=['On Time', 'Late', 'Backlog'], color_discrete_sequence=['#80ed99','#ef233c','#ee9b00'], title='Daily Overview', barmode='stack')
