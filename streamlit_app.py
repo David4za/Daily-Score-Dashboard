@@ -188,7 +188,8 @@ if uploaded_open_orders and uploaded_closed_orders:
 
     # Select Month 
 
-    months = daily_score_df['Month'].unique()
+    month_order = len(calendar.month_name)[1:]
+    months = sorted(daily_score_df['Month'].unique(), key=lambda x: month_order.index(x))
     selected_month = st.selectbox("Select Month", options=months, index=len(months)-1)
     
     filtered_df = daily_score_df[(daily_score_df['Month'] == selected_month) & 
