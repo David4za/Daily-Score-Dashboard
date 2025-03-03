@@ -185,14 +185,16 @@ if uploaded_open_orders and uploaded_closed_orders:
 
     years = daily_score_df['Year'].unique()
     selected_year = st.selectbox("Select Year", options=years, index=len(years)-1)
-    filtered_df = daily_score_df[daily_score_df['Year'] == selected_year]
 
     # Select Month 
 
     months = daily_score_df['Month'].unique()
     selected_month = st.selectbox("Select Month", options=months, index=len(months)-1)
-    filtered_df = daily_score_df[daily_score_df['Month'] == selected_month]
-
+    
+    filtered_df = daily_score_df[
+    (daily_score_df['Month'] == selected_month) & 
+    (daily_score_df['Year'] == selected_year)]
+    
     # KPIs
     avergae_score = filtered_df['Daily Score'].mean()
     total_on_time = filtered_df['On Time'].sum()
