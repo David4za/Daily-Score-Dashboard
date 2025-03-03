@@ -180,15 +180,20 @@ if uploaded_open_orders and uploaded_closed_orders:
     # ------- Dashboard --------
 
     st.subheader("Performance Overview")
-
+    
     # Filtering by year
 
     years = daily_score_df['Year'].unique()
     selected_year = st.selectbox("Select Year", options=years, index=len(years)-1)
     filtered_df = daily_score_df[daily_score_df['Year'] == selected_year]
-    
-    # KPIs
 
+    # Select Month 
+
+    months = daily_score_df['Month'].unique()
+    selected_month = st.selectbox("Select Month", options=months, index=len(months)-1)
+    filtered_df = daily_score_df[daily_score_df['Month'] == selected_month]
+
+    # KPIs
     avergae_score = filtered_df['Daily Score'].mean()
     total_on_time = filtered_df['On Time'].sum()
     total_late = filtered_df['Late'].sum()
@@ -203,14 +208,8 @@ if uploaded_open_orders and uploaded_closed_orders:
         st.metric("Total Late", total_late)
     with col4:
         st.metric("Average Backlog", f'{average_backlog:.2f}')
-
-    # Filter by Month 
     
-    months = daily_score_df['Month'].unique()
-    selected_month = st.selectbox("Select Month", options=months, index=len(months)-1)
-    filtered_df = daily_score_df[daily_score_df['Month'] == selected_month] 
-    
-    # # Date range (disabled for now)
+    # Date range (disabled for now)
     
     # min_date = filtered_df['Date'].min()
     # max_date = filtered_df['Date'].max()
