@@ -1,4 +1,3 @@
-calendar
 pandas
 datetime
 numpy
