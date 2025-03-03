@@ -222,3 +222,7 @@ if uploaded_open_orders and uploaded_closed_orders:
     st.subheader("Daily Score Trend")
     fig_bar = px.bar(filtered_df, x='Date',y=['On Time', 'Late', 'Backlog'], color_discrete_sequence=['#80ed99','#ef233c','#ee9b00'], title='Daily Overview', barmode='stack')
     st.plotly_chart(fig_bar)
+
+    st.subheader("Daily Score")
+    fig_line = px.line(filtered_df, x='Date', y='Daily Score', title="Daily Score", markers=True)
+    st.plotly_chart(fig_line)
