@@ -191,19 +191,18 @@ if uploaded_open_orders and uploaded_closed_orders:
     months = daily_score_df['Month'].unique()
     selected_month = st.selectbox("Select Month", options=months, index=len(months)-1)
     
-    filtered_df = daily_score_df[
-    (daily_score_df['Month'] == selected_month) & 
-    (daily_score_df['Year'] == selected_year)]
+    filtered_df = daily_score_df[(daily_score_df['Month'] == selected_month) & 
+                                 (daily_score_df['Year'] == selected_year)]
     
     # KPIs
-    avergae_score = filtered_df['Daily Score'].mean()
+    average_score = filtered_df['Daily Score'].mean()
     total_on_time = filtered_df['On Time'].sum()
     total_late = filtered_df['Late'].sum()
     average_backlog = filtered_df['Backlog'].mean()
 
     col1, col2, col3, col4 = st.columns(4)
     with col1:
-        st.metric("Average Daily Score", f'{avergae_score:.2f}')
+        st.metric("Average Daily Score", f'{average_score:.2f}')
     with col2:
         st.metric("Total On Time",total_on_time)
     with col3:
