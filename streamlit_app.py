@@ -227,6 +227,6 @@ if uploaded_open_orders and uploaded_closed_orders:
     st.plotly_chart(fig_bar)
 
     st.subheader("Daily Score")
-    fig_line = px.line(filtered_df, x='Date', y='Daily Score', title="Daily Score", markers=True)
+    fig_line = px.line(filtered_df, x='Date', y='Daily Score', title="Daily Score", markers=True, text='Daily Score')
     fig_line.update_traces(texttemplate='%{y}', textposition='top center')
     st.plotly_chart(fig_line)
